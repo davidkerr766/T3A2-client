@@ -1,13 +1,34 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import UserContext from '../context/UserContext'
 
 const LoginButton = () => {
-    const history = useHistory()
+    const { userData, setUserData } = useContext(UserContext)
 
+    const history = useHistory()
     const login = () => history.push("/login")
+    const changePassword = () => history.push("/change-password")
+    const logOut = () => {
+        setUserData({
+            token: undefined,
+            user: undefined
+        })
+        localStorage.setItem("auth-token", "")
+    }
 
     return (
+        <>
+        { userData.user ? (
+            <>
+            <button onClick={logOut} >Log Out</button>
+            <button onClick={changePassword} >Change Password</button>
+            </>
+        ) : (
             <button onClick={login} >Login</button>
+        )
+
+        }
+        </>    
     )
 }
 
