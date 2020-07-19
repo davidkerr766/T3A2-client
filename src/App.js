@@ -12,7 +12,7 @@ import api from './api'
 const App = () => {
 
   const [userData, setUserData] = useState({
-    token: undefined,
+    token: "",
     user: undefined
   })
 
@@ -21,7 +21,6 @@ const App = () => {
       let token = localStorage.getItem("auth-token")
       if (token === null) {
         localStorage.setItem("auth-token", "")
-        token = ""
       }
       const tokenCheck = await api.post(
         "/users/tokenIsValid",

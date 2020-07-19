@@ -3,7 +3,7 @@ import React from 'react'
 const ErrorMessage = (props) => {
     return (
         <div>
-            <p>{props.message}</p>
+            <span>{props.message}</span>
             <button onClick={props.clearError}>X</button>
         </div>
     )
