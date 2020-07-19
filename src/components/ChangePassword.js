@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import api from '../api'
 import UserContext from '../context/UserContext'
 import ErrorMessage from './ErrorMessage'
@@ -8,13 +9,14 @@ const ChangePassword = () => {
     const [newPass, setNewPass] = useState()
     const [newPass2, setNewPass2] = useState()
     const [error, setError] = useState()
+    const history = useHistory()
 
     const submit = async (e) => {
         try {
             e.preventDefault()
             const passwords = {oldPass, newPass, newPass2}
             await api.post("/users/change-password", passwords, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
-            
+            history.push("/")
         } catch (err) {
             err.response.data.error && setError(err.response.data.error)
         }
