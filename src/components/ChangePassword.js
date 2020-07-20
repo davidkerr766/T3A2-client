@@ -10,12 +10,14 @@ const ChangePassword = () => {
     const [newPass2, setNewPass2] = useState()
     const [error, setError] = useState()
     const history = useHistory()
+    const { setConfMsg } = useContext(UserContext)
 
     const submit = async (e) => {
         try {
             e.preventDefault()
             const passwords = {oldPass, newPass, newPass2}
-            await api.post("/users/change-password", passwords, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
+            const changePassRes = await api.post("/users/change-password", passwords, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
+            setConfMsg(changePassRes.data.message)
             history.push("/")
         } catch (err) {
             err.response.data.error && setError(err.response.data.error)

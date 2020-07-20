@@ -15,6 +15,7 @@ const App = () => {
     token: "",
     user: undefined
   })
+  const [confMsg, setConfMsg] = useState()
 
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -40,7 +41,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-    <UserContext.Provider value={{ userData, setUserData }}>
+    <UserContext.Provider value={{ userData, setUserData, confMsg, setConfMsg }}>
       <Navbar />
       <Switch>
         <Route path="/recipes" component={RecipesView} />
