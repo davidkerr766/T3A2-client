@@ -8,6 +8,7 @@ import ChangePassword from "./components/ChangePassword";
 import Navbar from "./components/Navbar";
 import UserContext from './context/UserContext'
 import api from './api'
+import NewRecipe from "./components/NewRecipe";
 
 const App = () => {
 
@@ -44,6 +45,7 @@ const App = () => {
     <UserContext.Provider value={{ userData, setUserData, confMsg, setConfMsg }}>
       <Navbar />
       <Switch>
+        <Route path="/recipes/new" component={NewRecipe} />
         <Route path="/recipes" component={RecipesView} />
         <Route path="/blog" component={BlogView} />
         <Route path="/login" component={Login} />
