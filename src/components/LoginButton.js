@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import UserContext from '../context/UserContext'
 
 const LoginButton = () => {
-    const { userData, setUserData } = useContext(UserContext)
+    const { userData, setUserData, setConfMsg } = useContext(UserContext)
 
     const history = useHistory()
     const login = () => history.push("/login")
@@ -14,6 +14,7 @@ const LoginButton = () => {
             user: undefined
         })
         localStorage.setItem("auth-token", "")
+        setConfMsg("Successfully Logged Out")
     }
 
     return (
