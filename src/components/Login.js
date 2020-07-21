@@ -26,7 +26,7 @@ const Login = () => {
             setConfMsg(loginRes.data.message)
             history.push("/")
         } catch (err) {
-            err.response.data.error && setError(err.response.data.error)
+            if (err.response.data.error) setError(err.response.data.error)
         }
     }
 

@@ -7,11 +7,11 @@ const About = () => {
 
     useEffect(() =>{
         return () => setConfMsg(undefined)
-    }, [])
+    }, [setConfMsg])
     
     return (
         <div>
-            {confMsg && <ConfirmationMessage message={confMsg} clearError={() => setConfMsg(undefined)} />}
+            {confMsg && <ConfirmationMessage message={confMsg} clearMessage={() => setConfMsg(undefined)} />}
             <h1>About</h1>
         </div>
     )
