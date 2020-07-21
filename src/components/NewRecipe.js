@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import api from '../api'
 import ConfirmationMessage from './ConfirmationMessage'
 import ErrorMessage from './ErrorMessage'
+import UserContext from '../context/UserContext'
 
 const NewRecipe = () => {
     const [recipeTitle, setRecipeTitle] = useState("")
@@ -14,6 +15,7 @@ const NewRecipe = () => {
     const [methods, setMethods] = useState([])
     const [message, setMessage] = useState()
     const [error, setError] = useState()
+    const { recipes, setRecipes } = useContext(UserContext)
     
 
     const sendRecipe = async e => {
@@ -22,7 +24,9 @@ const NewRecipe = () => {
             const newRecipe = {recipeTitle, serves, description, ingredients, methods, notes}
             const createRes = await api.post("/recipes/create", newRecipe, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
             setMessage(createRes.data.message)
-            // res.data.doc
+            setRecipes([ ...recipes, createRes.data.doc ])
+
+            // Clear inputs
             setRecipeTitle("")
             setServes("")
             setDescription("")

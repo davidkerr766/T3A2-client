@@ -1,14 +1,9 @@
-import React, { useState } from "react";
-import api from "../api";
+import React, { useContext } from "react";
+import UserContext from "../context/UserContext";
+
 
 const Blog = () => {
-  const [blogs, setBlogs] = useState([]);
-
-  api
-    .get("/blogs")
-    .then((res) => {
-      setBlogs(res.data);
-    });
+  const { blogs } = useContext(UserContext)
 
   return (
     <div>

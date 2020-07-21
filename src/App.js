@@ -17,6 +17,8 @@ const App = () => {
     user: undefined
   })
   const [confMsg, setConfMsg] = useState()
+  const [recipes, setRecipes] = useState([]);
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -38,11 +40,25 @@ const App = () => {
       }
     }
     checkLoggedIn()
+
+    // Get Recipes
+    api
+    .get("/recipes")
+    .then((res) => {
+      setRecipes(res.data);
+    });
+
+    // Get Blogs
+    api
+    .get("/blogs")
+    .then((res) => {
+      setBlogs(res.data);
+    });
   }, [])
 
   return (
     <BrowserRouter>
-    <UserContext.Provider value={{ userData, setUserData, confMsg, setConfMsg }}>
+    <UserContext.Provider value={{ userData, setUserData, confMsg, setConfMsg, recipes, setRecipes, blogs, setBlogs }}>
       <Navbar />
       <Switch>
         <Route path="/recipes/new" component={NewRecipe} />
