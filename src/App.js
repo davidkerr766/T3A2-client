@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import UserContext from './context/UserContext'
 import api from './api'
 import NewRecipe from "./components/NewRecipe";
+import EditRecipe from "./components/EditRecipe";
 
 const App = () => {
 
@@ -62,6 +63,7 @@ const App = () => {
       <Navbar />
       <Switch>
         <Route path="/recipes/new" component={NewRecipe} />
+        <Route path="/recipes/:index/edit" component={EditRecipe} />
         <Route path="/recipes" component={RecipesView} />
         <Route path="/blog" component={BlogView} />
         <Route path="/login" component={Login} />

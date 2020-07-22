@@ -40,14 +40,18 @@ const NewRecipe = () => {
 
     const addIngredient = (e) => {
         e.preventDefault()
-        setIngredients([...ingredients, ingredient])
-        setIngredient("")
+        if (ingredient) {
+            setIngredients([...ingredients, ingredient])
+            setIngredient("")
+        }
     }
 
     const addMethod = (e) => {
         e.preventDefault()
-        setMethods([...methods, method])
-        setMethod("")
+        if (method) {
+            setMethods([...methods, method])
+            setMethod("")
+        }
     }
 
     return (
