@@ -53,7 +53,7 @@ const EditRecipe = (props) => {
             recipes.splice(index, 1, updatedRecipe)
             setRecipes([...recipes])
             setConfMsg(editRes.data.message)
-            // history.push("/")
+            history.push(`/recipes/${index}`)
         } catch (err) {
              if (err.response.data.error) setErrorMsg(err.response.data.error)
         }

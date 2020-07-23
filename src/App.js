@@ -12,6 +12,7 @@ import NewRecipe from "./components/NewRecipe";
 import EditRecipe from "./components/EditRecipe";
 import ErrorMessage from "./components/ErrorMessage";
 import ConfirmationMessage from "./components/ConfirmationMessage";
+import ShowRecipe from "./components/ShowRecipe";
 
 const App = () => {
 
@@ -68,6 +69,7 @@ const App = () => {
       {confMsg && <ConfirmationMessage message={confMsg} clearMessage={() => setConfMsg(undefined)} />}
       <Switch>
         <Route path="/recipes/new" component={NewRecipe} />
+        <Route exact path="/recipes/:index" component={ShowRecipe} />
         <Route path="/recipes/:index/edit" component={EditRecipe} />
         <Route path="/recipes" component={RecipesView} />
         <Route path="/blog" component={BlogView} />

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import api from '../api'
 import UserContext from '../context/UserContext'
+import { useHistory } from 'react-router-dom'
 
 const NewRecipe = () => {
     const [recipeTitle, setRecipeTitle] = useState("")
@@ -12,7 +13,7 @@ const NewRecipe = () => {
     const [ingredients, setIngredients] = useState([])
     const [methods, setMethods] = useState([])
     const { recipes, setRecipes, setErrorMsg, setConfMsg } = useContext(UserContext)
-    
+    const history = useHistory()
 
     const sendRecipe = async e => {
         try {
@@ -29,6 +30,8 @@ const NewRecipe = () => {
             setNotes("")
             setIngredients([])
             setMethods([])
+
+            history.push(`/recipes/${recipes.length}`)
         } catch (err) {
             if (err.response.data.error) setErrorMsg(err.response.data.error)
         }
