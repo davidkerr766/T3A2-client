@@ -10,6 +10,8 @@ import UserContext from './context/UserContext'
 import api from './api'
 import NewRecipe from "./components/NewRecipe";
 import EditRecipe from "./components/EditRecipe";
+import ErrorMessage from "./components/ErrorMessage";
+import ConfirmationMessage from "./components/ConfirmationMessage";
 
 const App = () => {
 
@@ -62,6 +64,8 @@ const App = () => {
     <BrowserRouter>
     <UserContext.Provider value={{ userData, setUserData, confMsg, setConfMsg, setErrorMsg, recipes, setRecipes, blogs, setBlogs }}>
       <Navbar />
+      {errorMsg && <ErrorMessage message={errorMsg} clearError={() => setErrorMsg(undefined)} />}
+      {confMsg && <ConfirmationMessage message={confMsg} clearMessage={() => setConfMsg(undefined)} />}
       <Switch>
         <Route path="/recipes/new" component={NewRecipe} />
         <Route path="/recipes/:index/edit" component={EditRecipe} />

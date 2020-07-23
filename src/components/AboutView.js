@@ -5,9 +5,7 @@ import UserContext from '../context/UserContext'
 const About = () => {
     const { confMsg, setConfMsg } = useContext(UserContext)
 
-    useEffect(() =>{
-        return () => setConfMsg(undefined)
-    }, [setConfMsg])
+    
     
     return (
         <div>

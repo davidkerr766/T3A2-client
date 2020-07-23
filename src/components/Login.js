@@ -2,15 +2,13 @@ import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import UserContext from '../context/UserContext'
 import api from '../api'
-import ErrorMessage from './ErrorMessage'
 
 
 const Login = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [error, setError] = useState()
 
-    const { setUserData, setConfMsg } = useContext(UserContext)
+    const { setUserData, setConfMsg, setErrorMsg } = useContext(UserContext)
     const history = useHistory()
 
     const submit = async (e) => {
@@ -26,14 +24,13 @@ const Login = () => {
             setConfMsg(loginRes.data.message)
             history.push("/")
         } catch (err) {
-            if (err.response.data.error) setError(err.response.data.error)
+            if (err.response.data.error) setErrorMsg(err.response.data.error)
         }
     }
 
     return (
         <div>
             <h1>Login</h1>
-            {error && <ErrorMessage message={error} clearError={() => setError(undefined)} />} 
             <form onSubmit={submit}>
                 <label htmlFor="loginEmail">Email</label>
                 <input type="text" id="loginEmail" onChange={e => setEmail(e.target.value)}></input> <br />
