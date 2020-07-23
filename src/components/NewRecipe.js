@@ -24,7 +24,7 @@ const NewRecipe = () => {
             const newRecipe = {recipeTitle, serves, description, ingredients, methods, notes}
             const createRes = await api.post("/recipes/create", newRecipe, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
             setMessage(createRes.data.message)
-            setRecipes([ ...recipes, createRes.data.doc ])
+            setRecipes([ ...recipes, createRes.data.data ])
 
             // Clear inputs
             setRecipeTitle("")

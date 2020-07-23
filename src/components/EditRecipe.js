@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
 import UserContext from '../context/UserContext'
+import api from '../api'
+import { useHistory } from 'react-router-dom'
 
 const EditRecipe = (props) => {
-    const { recipes, setRecipes } = useContext(UserContext)
-    const recipe = recipes[props.match.params.index]
-    // console.log(recipe)
+    const index = props.match.params.index
+    const { recipes, setRecipes, setErrorMsg, setConfMsg } = useContext(UserContext)
+    const recipe = recipes[index]
     const [recipeTitle, setRecipeTitle] = useState("")
     const [serves, setServes] = useState("")
     const [description, setDescription] = useState("")
@@ -13,6 +15,7 @@ const EditRecipe = (props) => {
     const [notes, setNotes] = useState("")
     const [ingredients, setIngredients] = useState([])
     const [methods, setMethods] = useState([])
+    const history = useHistory()
     
     // update values when recipes have been fetched from the api
     useEffect(()=> {
@@ -24,7 +27,7 @@ const EditRecipe = (props) => {
             setIngredients(recipe.ingredients)
             setMethods(recipe.methods)
         }
-    }, [recipes])
+    }, [recipe])
 
     const addIngredient = e => {
         e.preventDefault()
@@ -42,11 +45,24 @@ const EditRecipe = (props) => {
         }
     }
 
+    const sendUpdatedRecipe = async e => {
+        try {
+            e.preventDefault()
+            const updatedRecipe = {...recipe, recipeTitle, serves, description, ingredients, methods, notes}
+            const editRes = await api.put('recipes/update', updatedRecipe, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
+            recipes.splice(index, 1, updatedRecipe)
+            setRecipes([...recipes])
+            setConfMsg(editRes.data.message)
+            // history.push("/")
+        } catch (err) {
+             if (err.response.data.error) setErrorMsg(err.response.data.error)
+        }
+    }
 
     return (
         <div>
             <h1>Edit Recipe</h1>
-            <form>
+            <form onSubmit={sendUpdatedRecipe}>
                 <label htmlFor="recipeTitle">Title:</label>
                 <input type="text" onChange={e => setRecipeTitle(e.target.value)} value={recipeTitle} /> <br />
                 <label htmlFor="serves">Serves:</label>
@@ -54,13 +70,14 @@ const EditRecipe = (props) => {
                 <label htmlFor="description">Description:</label> <br />
                 <textarea id="description" rows="4" cols="50" onChange={e => setDescription(e.target.value)} value={description} /> <br />
                 <p>Ingredients:</p>
-                { ingredients.map( (ingred, key) => (
+                { ingredients.map((ingred, key) => (
                     <>
                     <input type="text" value={ingred} onChange={e => {
                         ingredients.splice(key, 1, e.target.value)
                         setIngredients([...ingredients])
                     }}/> 
-                    <button onClick={() => {
+                    <button onClick={e => {
+                        e.preventDefault()
                         ingredients.splice(key, 1)
                         setIngredients([...ingredients])
                     }}>X</button><br />
@@ -69,6 +86,20 @@ const EditRecipe = (props) => {
                 <label htmlFor="newIngredient">New Ingredient:</label>
                 <input type="text" id="newIngredients" onChange={e => setIngredient(e.target.value)} value={ingredient} />
                 <button onClick={addIngredient}>Add</button> <br />
+                <p>Methods:</p>
+                { methods.map( (meth, key) => (
+                    <>
+                    <input type="text" value={meth} onChange={e => {
+                        methods.splice(key, 1, e.target.value)
+                        setMethods([...methods])
+                    }}/> 
+                    <button onClick={e => {
+                        e.preventDefault()
+                        methods.splice(key, 1)
+                        setMethods([...methods])
+                    }}>X</button><br />
+                    </>
+                ))}
                 <label htmlFor="newMethod">New Method:</label>
                 <input type="text" id="newMethod" onChange={e => setMethod(e.target.value)} value={method} />
                 <button onClick={addMethod}>Add</button> <br />
