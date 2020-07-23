@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import UserContext from '../context/UserContext'
 import api from '../api'
 import { useHistory } from 'react-router-dom'
+import Recipe from './Recipe'
 
 const EditRecipe = (props) => {
     const index = props.match.params.index
@@ -107,6 +108,8 @@ const EditRecipe = (props) => {
                 <textarea id="notes" rows="4" cols="50" onChange={e => setNotes(e.target.value)} value={notes} /> <br />
                 <input type="submit" value="Save Recipe" />
             </form>
+            <h1>Preview</h1>
+            <Recipe {...{recipeTitle, serves, description, ingredients, methods, notes}}/>
         </div>
     )
 }

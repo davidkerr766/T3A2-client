@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import api from '../api'
 import UserContext from '../context/UserContext'
 import { useHistory } from 'react-router-dom'
+import Recipe from './Recipe'
 
 const NewRecipe = () => {
     const [recipeTitle, setRecipeTitle] = useState("")
@@ -73,6 +74,8 @@ const NewRecipe = () => {
                 <textarea id="notes" rows="4" cols="50" onChange={e => setNotes(e.target.value)} value={notes} /> <br />
                 <input type="submit" value="Add Recipe" />
             </form>
+            <h1>Preview</h1>
+            <Recipe {...{recipeTitle, serves, description, ingredients, methods, notes}}/>
         </div>
     )
 }

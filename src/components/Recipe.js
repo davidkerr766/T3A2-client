@@ -1,26 +1,27 @@
 import React from 'react'
 
 const Recipe = (props) => {
+    const { recipeTitle, serves, description, ingredients, methods, notes } = props
 
     return (
         <div>
-            <h2>{props.recipeTitle}</h2>
-            <p><b>Serves: {props.serves}</b></p>
-            <p>{props.description}</p>
-            <p><b>Ingredients:</b></p>
+            {recipeTitle && <h2>{recipeTitle}</h2>}
+            { serves && <p><b>Serves: {serves}</b></p>}
+            {description && <p>{description}</p>}
+            {(ingredients.length > 0) &&<><p><b>Ingredients:</b></p>
             <ul>
-                {props.ingredients.map(ingredient => (
+                {ingredients.map(ingredient => (
                     <li>{ingredient}</li>
                 ))}
-            </ul>
-            <p><b>Method:</b></p>
+            </ul></>}
+            {(methods.length > 0) && <><p><b>Method:</b></p>
             <ol>
-                {props.methods.map(method => (
+                {methods.map(method => (
                     <li>{method}</li>
                 ))}
-            </ol>
-            <p><b>Notes:</b></p>
-            <p>{props.notes}</p>
+            </ol></>}
+            {notes && <><p><b>Notes:</b></p>
+            <p>{notes}</p></>}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import UserContext from '../context/UserContext'
 import Recipe from './Recipe'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 const ShowRecipe = (props) => {
     const { recipes } = useContext(UserContext)
@@ -15,7 +15,8 @@ const ShowRecipe = (props) => {
     return (
         <div>
             {recipe && <Recipe {...recipe} />}
-            <button onClick={e => {e.preventDefault(); history.goBack()}}>Back</button>
+            <button onClick={e => {e.preventDefault(); history.goBack()}}>Back to Edit</button>
+            <Link to="/recipes"><button>Recipes</button></Link>
         </div>
     )
 }
