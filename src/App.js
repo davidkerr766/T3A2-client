@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import UserContext from './context/UserContext'
 import api from './api'
 import NewRecipe from "./components/NewRecipe";
+import EditRecipe from "./components/EditRecipe";
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
     user: undefined
   })
   const [confMsg, setConfMsg] = useState()
+  const [errorMsg, setErrorMsg] = useState()
   const [recipes, setRecipes] = useState([]);
   const [blogs, setBlogs] = useState([]);
 
@@ -54,14 +56,15 @@ const App = () => {
     .then((res) => {
       setBlogs(res.data);
     });
-  }, [])
+  },[])
 
   return (
     <BrowserRouter>
-    <UserContext.Provider value={{ userData, setUserData, confMsg, setConfMsg, recipes, setRecipes, blogs, setBlogs }}>
+    <UserContext.Provider value={{ userData, setUserData, confMsg, setConfMsg, setErrorMsg, recipes, setRecipes, blogs, setBlogs }}>
       <Navbar />
       <Switch>
         <Route path="/recipes/new" component={NewRecipe} />
+        <Route path="/recipes/:index/edit" component={EditRecipe} />
         <Route path="/recipes" component={RecipesView} />
         <Route path="/blog" component={BlogView} />
         <Route path="/login" component={Login} />

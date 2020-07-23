@@ -24,7 +24,7 @@ const NewRecipe = () => {
             const newRecipe = {recipeTitle, serves, description, ingredients, methods, notes}
             const createRes = await api.post("/recipes/create", newRecipe, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
             setMessage(createRes.data.message)
-            setRecipes([ ...recipes, createRes.data.doc ])
+            setRecipes([ ...recipes, createRes.data.data ])
 
             // Clear inputs
             setRecipeTitle("")
@@ -40,14 +40,18 @@ const NewRecipe = () => {
 
     const addIngredient = (e) => {
         e.preventDefault()
-        setIngredients([...ingredients, ingredient])
-        setIngredient("")
+        if (ingredient) {
+            setIngredients([...ingredients, ingredient])
+            setIngredient("")
+        }
     }
 
     const addMethod = (e) => {
         e.preventDefault()
-        setMethods([...methods, method])
-        setMethod("")
+        if (method) {
+            setMethods([...methods, method])
+            setMethod("")
+        }
     }
 
     return (
