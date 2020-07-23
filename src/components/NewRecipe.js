@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react'
 import api from '../api'
-import ConfirmationMessage from './ConfirmationMessage'
-import ErrorMessage from './ErrorMessage'
 import UserContext from '../context/UserContext'
 
 const NewRecipe = () => {
@@ -13,9 +11,7 @@ const NewRecipe = () => {
     const [notes, setNotes] = useState("")
     const [ingredients, setIngredients] = useState([])
     const [methods, setMethods] = useState([])
-    const [message, setMessage] = useState()
-    const [error, setError] = useState()
-    const { recipes, setRecipes } = useContext(UserContext)
+    const { recipes, setRecipes, setErrorMsg, setConfMsg } = useContext(UserContext)
     
 
     const sendRecipe = async e => {
@@ -23,7 +19,7 @@ const NewRecipe = () => {
             e.preventDefault()
             const newRecipe = {recipeTitle, serves, description, ingredients, methods, notes}
             const createRes = await api.post("/recipes/create", newRecipe, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
-            setMessage(createRes.data.message)
+            setConfMsg(createRes.data.message)
             setRecipes([ ...recipes, createRes.data.data ])
 
             // Clear inputs
@@ -34,7 +30,7 @@ const NewRecipe = () => {
             setIngredients([])
             setMethods([])
         } catch (err) {
-            if (err.response.data.error) setError(err.response.data.error)
+            if (err.response.data.error) setErrorMsg(err.response.data.error)
         }
     }
 
@@ -57,8 +53,6 @@ const NewRecipe = () => {
     return (
         <div>
             <h1>New Recipe</h1>
-            {error && <ErrorMessage message={error} clearError={() => setError(undefined)} />}
-            {message && <ConfirmationMessage message={message} clearMessage={() => setMessage(undefined)} />}
             <form onSubmit={sendRecipe}>
                 <label htmlFor="recipeTitle">Title:</label>
                 <input type="text" onChange={e => setRecipeTitle(e.target.value)} value={recipeTitle} /> <br />

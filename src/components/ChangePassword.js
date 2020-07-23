@@ -2,15 +2,13 @@ import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import api from '../api'
 import UserContext from '../context/UserContext'
-import ErrorMessage from './ErrorMessage'
 
 const ChangePassword = () => {
     const [oldPass, setOldPass] = useState()
     const [newPass, setNewPass] = useState()
     const [newPass2, setNewPass2] = useState()
-    const [error, setError] = useState()
     const history = useHistory()
-    const { setConfMsg } = useContext(UserContext)
+    const { setConfMsg, setErrorMsg } = useContext(UserContext)
 
     const submit = async (e) => {
         try {
@@ -20,14 +18,13 @@ const ChangePassword = () => {
             setConfMsg(changePassRes.data.message)
             history.push("/")
         } catch (err) {
-            err.response.data.error && setError(err.response.data.error)
+            err.response.data.error && setErrorMsg(err.response.data.error)
         }
     }
 
     return (
         <div>
             <h1>Change Password</h1>
-            {error && <ErrorMessage message={error} clearError={() => setError(undefined)} />}
             <form onSubmit={submit}>
                 <label htmlFor="oldPass">Old Password</label>
                 <input type="password" id="oldPass" onChange={e => setOldPass(e.target.value)}></input> <br />
