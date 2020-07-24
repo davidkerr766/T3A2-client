@@ -15,7 +15,7 @@ const ShowRecipe = (props) => {
     return (
         <div>
             {recipe && <Recipe {...recipe} />}
-            <button onClick={e => {e.preventDefault(); history.goBack()}}>Back to Edit</button>
+            <button onClick={e => {e.preventDefault(); history.goBack()}}>Back</button>
             <Link to="/recipes"><button>Recipes</button></Link>
         </div>
     )

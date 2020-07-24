@@ -15,6 +15,7 @@ import ConfirmationMessage from "./components/ConfirmationMessage";
 import ShowRecipe from "./components/ShowRecipe";
 import NewBlog from "./components/NewBlog";
 import EditBlog from "./components/EditBlog";
+import ShowBlog from "./components/ShowBlog";
 
 const App = () => {
 
@@ -75,6 +76,7 @@ const App = () => {
         <Route path="/recipes/:index/edit" component={EditRecipe} />
         <Route path="/recipes" component={RecipesView} />
         <Route path="/blogs/new" component={NewBlog} />
+        <Route exact path="/blogs/:index" component={ShowBlog} />
         <Route path="/blogs/:index/edit" component={EditBlog} />
         <Route path="/blogs" component={BlogsView} />
         <Route path="/login" component={Login} />

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Recipe from './Recipe';
 import UserContext from '../context/UserContext';
@@ -7,17 +7,11 @@ import api from '../api';
 const RecipesView = () => {
     const { recipes, setRecipes, setErrorMsg, setConfMsg } = useContext(UserContext)
 
-    // Creating state to trigger component rerender if recipe deleted
-    const [, triggerRender] = useState()
-
-    useEffect(() => {
-        triggerRender()
-    },[recipes])
-
     return (
         <div>
             <h1>Recipes</h1>
             <Link to="recipes/new"><button>Add New Recipe</button></Link>
+            {recipes && <>
             {recipes.map((recipe, key) => (
                 <React.Fragment key={key}>
                 <Recipe {...recipe} />
@@ -35,6 +29,7 @@ const RecipesView = () => {
                 }}>Delete</button>
                 </React.Fragment>
             ))}
+            </>}
         </div>
     )
 }
