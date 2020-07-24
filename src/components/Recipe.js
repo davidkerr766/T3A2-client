@@ -10,14 +10,14 @@ const Recipe = (props) => {
             {description && <p>{description}</p>}
             {(ingredients.length > 0) &&<><p><b>Ingredients:</b></p>
             <ul>
-                {ingredients.map(ingredient => (
-                    <li>{ingredient}</li>
+                {ingredients.map((ingredient, key) => (
+                    <li key={key}>{ingredient}</li>
                 ))}
             </ul></>}
             {(methods.length > 0) && <><p><b>Method:</b></p>
             <ol>
-                {methods.map(method => (
-                    <li>{method}</li>
+                {methods.map((method, key) => (
+                    <li key={key}>{method}</li>
                 ))}
             </ol></>}
             {notes && <><p><b>Notes:</b></p>

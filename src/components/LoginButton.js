@@ -15,6 +15,7 @@ const LoginButton = () => {
         })
         localStorage.setItem("auth-token", "")
         setConfMsg("Successfully Logged Out")
+        history.push("/about")
     }
 
     return (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AboutView from "./components/AboutView";
 import RecipesView from "./components/RecipesView";
-import BlogView from "./components/BlogView";
+import BlogsView from "./components/BlogsView";
 import Login from "./components/Login";
 import ChangePassword from "./components/ChangePassword";
 import Navbar from "./components/Navbar";
@@ -13,6 +13,8 @@ import EditRecipe from "./components/EditRecipe";
 import ErrorMessage from "./components/ErrorMessage";
 import ConfirmationMessage from "./components/ConfirmationMessage";
 import ShowRecipe from "./components/ShowRecipe";
+import NewBlog from "./components/NewBlog";
+import EditBlog from "./components/EditBlog";
 
 const App = () => {
 
@@ -72,7 +74,9 @@ const App = () => {
         <Route exact path="/recipes/:index" component={ShowRecipe} />
         <Route path="/recipes/:index/edit" component={EditRecipe} />
         <Route path="/recipes" component={RecipesView} />
-        <Route path="/blog" component={BlogView} />
+        <Route path="/blogs/new" component={NewBlog} />
+        <Route path="/blogs/:index/edit" component={EditBlog} />
+        <Route path="/blogs" component={BlogsView} />
         <Route path="/login" component={Login} />
         <Route path="/change-password" component={ChangePassword} />
         <Route path="/" component={AboutView} />
