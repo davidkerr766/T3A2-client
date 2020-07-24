@@ -43,6 +43,8 @@ const NewRecipe = () => {
         if (ingredient) {
             setIngredients([...ingredients, ingredient])
             setIngredient("")
+        } else {
+            setErrorMsg("Ingredient cannot be blank")
         }
     }
 
@@ -51,6 +53,8 @@ const NewRecipe = () => {
         if (method) {
             setMethods([...methods, method])
             setMethod("")
+        } else {
+            setErrorMsg("Method cannot be blank")
         }
     }
 
