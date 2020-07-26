@@ -5,16 +5,17 @@ import UserContext from '../context/UserContext';
 import api from '../api';
 
 const RecipesView = () => {
-    const { recipes, setRecipes, setErrorMsg, setConfMsg } = useContext(UserContext)
+    const { recipes, setRecipes, setErrorMsg, setConfMsg, userData } = useContext(UserContext)
 
     return (
         <div>
             <h1>Recipes</h1>
-            <Link to="recipes/new"><button>Add New Recipe</button></Link>
+            {userData.user && <Link to="recipes/new"><button>Add New Recipe</button></Link>}
             {recipes && <>
             {recipes.map((recipe, key) => (
                 <React.Fragment key={key}>
                 <Recipe {...recipe} />
+                { userData.user && <>
                 <Link to={`recipes/${key}/edit`}><button>Edit</button></Link>
                 <button onClick={async e => {
                     try {
@@ -26,7 +27,7 @@ const RecipesView = () => {
                     } catch (err) {
                         if (err.response.data.error) setErrorMsg(err.response.data.error)
                     }     
-                }}>Delete</button>
+                }}>Delete</button></>}
                 </React.Fragment>
             ))}
             </>}

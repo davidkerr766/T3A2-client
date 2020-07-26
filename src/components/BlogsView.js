@@ -6,17 +6,17 @@ import api from "../api";
 
 
 const BlogsView = () => {
-  const { blogs, setBlogs, setConfMsg, setErrorMsg } = useContext(UserContext)
+  const { blogs, setBlogs, setConfMsg, setErrorMsg, userData } = useContext(UserContext)
 
   return (
     <div>
       <h1>Blog</h1>
-      <Link to="blogs/new"><button>Add New Blog Post</button></Link>
+      {userData.user && <Link to="blogs/new"><button>Add New Blog Post</button></Link>}
       {blogs && <>
         {blogs.map((blog, key) => (
             <React.Fragment key={key}>
             <Blog {...blog} />
-            <Link to={`blogs/${key}/edit`}><button>Edit</button></Link>
+            {userData.user && <><Link to={`blogs/${key}/edit`}><button>Edit</button></Link>
             <button onClick={async e=>{
               try {
                 e.preventDefault()
@@ -27,7 +27,7 @@ const BlogsView = () => {
               } catch (err) {
                   if (err.response.data.error) setErrorMsg(err.response.data.error)
               }     
-            }}>Delete</button>
+            }}>Delete</button></>}
             </React.Fragment>
         ))}
       </>}
