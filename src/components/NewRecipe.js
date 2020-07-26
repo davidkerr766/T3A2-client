@@ -3,6 +3,7 @@ import api from '../api'
 import UserContext from '../context/UserContext'
 import { useHistory } from 'react-router-dom'
 import Recipe from './Recipe'
+import axios from 'axios'
 
 const NewRecipe = () => {
     const [recipeTitle, setRecipeTitle] = useState("")
@@ -11,6 +12,7 @@ const NewRecipe = () => {
     const [ingredient, setIngredient] = useState("")
     const [method, setMethod] = useState("")
     const [notes, setNotes] = useState("")
+    const [getURL, setGetURL] = useState("")
     const [ingredients, setIngredients] = useState([])
     const [methods, setMethods] = useState([])
     const { recipes, setRecipes, setErrorMsg, setConfMsg } = useContext(UserContext)
@@ -19,19 +21,10 @@ const NewRecipe = () => {
     const sendRecipe = async e => {
         try {
             e.preventDefault()
-            const newRecipe = {recipeTitle, serves, description, ingredients, methods, notes}
+            const newRecipe = {recipeTitle, serves, description, ingredients, methods, notes, getURL}
             const createRes = await api.post("/recipes/create", newRecipe, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
             setConfMsg(createRes.data.message)
             setRecipes([ ...recipes, createRes.data.data ])
-
-            // Clear inputs
-            setRecipeTitle("")
-            setServes("")
-            setDescription("")
-            setNotes("")
-            setIngredients([])
-            setMethods([])
-
             history.push(`/recipes/${recipes.length}`)
         } catch (err) {
             if (err.response.data.error) setErrorMsg(err.response.data.error)
@@ -58,10 +51,34 @@ const NewRecipe = () => {
         }
     }
 
+    const uploadImg = e => {
+        const file = e.target.files[0]
+        const contentType = file.type
+        const options = {
+        params: {
+            Key: file.name,
+            ContentType: contentType
+            },
+            headers: {
+            'Content-Type': contentType,
+            "x-auth-token": localStorage.getItem("auth-token")
+            }
+        };
+
+        api.get("images/generate-put-url", options)
+        .then(res =>{
+            return axios.put(res.data.putURL, file, options)
+        }).then((res) => {
+            setGetURL(res.config.url.split("?")[0])
+        }).catch(err => setErrorMsg(err.message))
+    }
+
     return (
         <div>
             <h1>New Recipe</h1>
             <form onSubmit={sendRecipe}>
+                <label htmlFor="image">Image:</label>
+                <input type="file" accept="image/*" id="image" onChange={uploadImg} /> <br />
                 <label htmlFor="recipeTitle">Title:</label>
                 <input type="text" onChange={e => setRecipeTitle(e.target.value)} value={recipeTitle} /> <br />
                 <label htmlFor="serves">Serves:</label>
@@ -79,7 +96,7 @@ const NewRecipe = () => {
                 <input type="submit" value="Add Recipe" />
             </form>
             <h1>Preview</h1>
-            <Recipe {...{recipeTitle, serves, description, ingredients, methods, notes}}/>
+            <Recipe {...{recipeTitle, serves, description, ingredients, methods, notes, getURL}}/>
         </div>
     )
 }

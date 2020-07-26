@@ -3,6 +3,7 @@ import UserContext from '../context/UserContext'
 import api from '../api'
 import { useHistory } from 'react-router-dom'
 import Recipe from './Recipe'
+import Axios from 'axios'
 
 const EditRecipe = (props) => {
     const index = props.match.params.index
@@ -14,6 +15,7 @@ const EditRecipe = (props) => {
     const [ingredient, setIngredient] = useState("")
     const [method, setMethod] = useState("")
     const [notes, setNotes] = useState("")
+    const [getURL, setGetURL] = useState("")
     const [ingredients, setIngredients] = useState([])
     const [methods, setMethods] = useState([])
     const history = useHistory()
@@ -27,6 +29,7 @@ const EditRecipe = (props) => {
             setNotes(recipe.notes)
             setIngredients(recipe.ingredients)
             setMethods(recipe.methods)
+            setGetURL(recipe.getURL)
         }
     }, [recipe])
 
@@ -49,7 +52,7 @@ const EditRecipe = (props) => {
     const sendUpdatedRecipe = async e => {
         try {
             e.preventDefault()
-            const updatedRecipe = {...recipe, recipeTitle, serves, description, ingredients, methods, notes}
+            const updatedRecipe = {...recipe, recipeTitle, serves, description, ingredients, methods, notes, getURL}
             const editRes = await api.put('recipes/update', updatedRecipe, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
             recipes.splice(index, 1, updatedRecipe)
             setRecipes([...recipes])
@@ -60,10 +63,34 @@ const EditRecipe = (props) => {
         }
     }
 
+    const uploadImg = e => {
+        const file = e.target.files[0]
+        const contentType = file.type
+        const options = {
+        params: {
+            Key: file.name,
+            ContentType: contentType
+            },
+            headers: {
+            'Content-Type': contentType,
+            "x-auth-token": localStorage.getItem("auth-token")
+            }
+        };
+
+        api.get("images/generate-put-url", options)
+        .then(res =>{
+            return Axios.put(res.data.putURL, file, options)
+        }).then((res) => {
+            setGetURL(res.config.url.split("?")[0])
+        }).catch(err => setErrorMsg(err.message))
+    }
+
     return (
         <div>
             <h1>Edit Recipe</h1>
             <form onSubmit={sendUpdatedRecipe}>
+            <label htmlFor="image">Image:</label>
+                <input type="file" accept="image/*" id="image" onChange={uploadImg} /> <br />
                 <label htmlFor="recipeTitle">Title:</label>
                 <input type="text" onChange={e => setRecipeTitle(e.target.value)} value={recipeTitle} /> <br />
                 <label htmlFor="serves">Serves:</label>
@@ -109,7 +136,7 @@ const EditRecipe = (props) => {
                 <input type="submit" value="Save Recipe" />
             </form>
             <h1>Preview</h1>
-            <Recipe {...{recipeTitle, serves, description, ingredients, methods, notes}}/>
+            <Recipe {...{recipeTitle, serves, description, ingredients, methods, notes, getURL}}/>
         </div>
     )
 }
