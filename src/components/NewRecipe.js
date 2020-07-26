@@ -25,15 +25,6 @@ const NewRecipe = () => {
             const createRes = await api.post("/recipes/create", newRecipe, { headers: { "x-auth-token": localStorage.getItem("auth-token") } })
             setConfMsg(createRes.data.message)
             setRecipes([ ...recipes, createRes.data.data ])
-
-            // Clear inputs
-            setRecipeTitle("")
-            setServes("")
-            setDescription("")
-            setNotes("")
-            setIngredients([])
-            setMethods([])
-
             history.push(`/recipes/${recipes.length}`)
         } catch (err) {
             if (err.response.data.error) setErrorMsg(err.response.data.error)
@@ -105,7 +96,7 @@ const NewRecipe = () => {
                 <input type="submit" value="Add Recipe" />
             </form>
             <h1>Preview</h1>
-            <Recipe {...{recipeTitle, serves, description, ingredients, methods, notes}}/>
+            <Recipe {...{recipeTitle, serves, description, ingredients, methods, notes, getURL}}/>
         </div>
     )
 }

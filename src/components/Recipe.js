@@ -5,7 +5,7 @@ const Recipe = (props) => {
 
     return (
         <div>
-            {getURL && <img src={getURL} alt="" />}
+            {getURL && <img src={getURL} alt={recipeTitle || "Image of completed recipe"} />}
             {recipeTitle && <h2>{recipeTitle}</h2>}
             { serves && <p><b>Serves: {serves}</b></p>}
             {description && <p>{description}</p>}
