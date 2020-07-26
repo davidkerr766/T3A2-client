@@ -1,10 +1,11 @@
 import React from 'react'
 
 const Recipe = (props) => {
-    const { recipeTitle, serves, description, ingredients, methods, notes } = props
+    const { recipeTitle, serves, description, ingredients, methods, notes, getURL } = props
 
     return (
         <div>
+            {getURL && <img src={getURL} alt="" />}
             {recipeTitle && <h2>{recipeTitle}</h2>}
             { serves && <p><b>Serves: {serves}</b></p>}
             {description && <p>{description}</p>}
