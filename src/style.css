@@ -26,8 +26,9 @@ nav {
     min-height: calc(100vh - 3rem);
     margin: auto;
     display: flex;
-    justify-content: center;
     font-family: 'Titillium Web', sans-serif;
+    flex-direction: column;
+    align-items: center;
 }
 
 nav div a, 
@@ -48,7 +49,7 @@ nav button {
     border: none;
 }
 
-#recipe {
+.content {
     width: 100%;
     background-color: lightyellow;
     margin: auto;
@@ -61,7 +62,7 @@ ol {
     list-style-position:inside;
 }
 
-#recipe img {
+.content img {
     width: 100%;
     border-radius: 0.5rem 0.5rem 0 0;
 }
@@ -69,6 +70,7 @@ ol {
 .browse {
     max-width: 640px;
     padding: 0 0.5rem;
+    width: 100%;
 }
 
 h1 {
@@ -78,7 +80,7 @@ h1 {
     font-size: 3.5rem;
 }
 
-#main button {
+.browse button {
     padding: 0.2rem 1rem;
     margin-bottom: 0.5rem;
     margin-top:0.2rem;
@@ -86,4 +88,56 @@ h1 {
 
 .text {
     padding: 0.2rem 0.5rem;
+}
+
+#blog h2 {
+    font-size: 1.8rem;
+    background-color: rgb(218, 218, 192);
+    padding: 0 0.3rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    text-align: center;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    padding: 0.5rem 0;
+}
+
+.message button {
+    margin: 0;
+    border-radius: 50%;
+    margin: 0 0.5rem;
+    padding: 0 0.25rem;
+    border: 0;
+
+}
+
+form {
+    padding: 0 0.5rem;
+    text-align: center;
+    width: 60%;
+    margin: auto;
+}
+
+input[type=text],
+input[type=password],
+textarea {
+    width: 90%;
+}
+
+input[type=submit] {
+    padding: 0.2rem 1rem;
+    margin-top: 0.35rem;
+}
+
+#about {
+    width: 75%;
+    text-align: center;
+    margin: auto;
+    margin-top: 1rem;
+    font-size: 1.2rem;
 }

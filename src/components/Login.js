@@ -29,12 +29,12 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className="browse">
             <h1>Login</h1>
             <form onSubmit={submit}>
-                <label htmlFor="loginEmail">Email</label>
+                <label htmlFor="loginEmail">Email:</label> <br />
                 <input type="text" id="loginEmail" onChange={e => setEmail(e.target.value)}></input> <br />
-                <label htmlFor="loginPassword">Password</label>
+                <label htmlFor="loginPassword">Password:</label> <br />
                 <input type="password" id="loginPassword" onChange={e => setPassword(e.target.value)}></input> <br />
                 <input type="submit" value="log in" />
             </form>

@@ -9,7 +9,7 @@ const BlogsView = () => {
   const { blogs, setBlogs, setConfMsg, setErrorMsg, userData } = useContext(UserContext)
 
   return (
-    <div>
+    <div className="browse">
       <h1>BLOG</h1>
       {userData.user && <Link to="blogs/new"><button>Add New Blog Post</button></Link>}
       {blogs && <>
@@ -28,6 +28,7 @@ const BlogsView = () => {
                   if (err.response.data.error) setErrorMsg(err.response.data.error)
               }     
             }}>Delete</button></>}
+            <br />
             </React.Fragment>
         ))}
       </>}

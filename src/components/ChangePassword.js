@@ -23,14 +23,14 @@ const ChangePassword = () => {
     }
 
     return (
-        <div>
+        <div className="browse">
             <h1>Change Password</h1>
             <form onSubmit={submit}>
-                <label htmlFor="oldPass">Old Password</label>
+                <label htmlFor="oldPass">Old Password:</label> <br />
                 <input type="password" id="oldPass" onChange={e => setOldPass(e.target.value)}></input> <br />
-                <label htmlFor="newPass">New Password</label>
+                <label htmlFor="newPass">New Password:</label> <br />
                 <input type="password" id="newPass" onChange={e => setNewPass(e.target.value)}></input> <br />
-                <label htmlFor="newPass2">Confirm Password</label>
+                <label htmlFor="newPass2">Confirm Password:</label> <br />
                 <input type="password" id="newPass2" onChange={e => setNewPass2(e.target.value)}></input> <br />
                 <input type="submit" value="Change Password" />
             </form>

@@ -3,8 +3,9 @@ import React from 'react'
 const Blog = (props) => {
     const { blogTitle, paragraphs } = props
     return (
-        <div>
+        <div className="content" id="blog">
             {blogTitle && <h2>{blogTitle}</h2>}
+            <div className="text">
             {(paragraphs.length > 0) && <>
                 {paragraphs.map((paragraph, key) => (
                     <React.Fragment key={key}>
@@ -13,6 +14,7 @@ const Blog = (props) => {
                     </React.Fragment>
                 ))}
             </>}
+            </div>
         </div>
     )
 }
