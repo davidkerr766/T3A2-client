@@ -10,7 +10,7 @@ const BlogsView = () => {
 
   return (
     <div>
-      <h1>Blog</h1>
+      <h1>BLOG</h1>
       {userData.user && <Link to="blogs/new"><button>Add New Blog Post</button></Link>}
       {blogs && <>
         {blogs.map((blog, key) => (
