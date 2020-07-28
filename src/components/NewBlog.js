@@ -38,10 +38,11 @@ const NewBlog = () => {
     }
 
     return (
-        <div>
+        <div className="panel-container">
+            <div className="panel">
             <h1>New Blog</h1>
             <form onSubmit={sendBlog}>
-                <label htmlFor="blogTitle">Title:</label>
+                <label htmlFor="blogTitle">Title:</label> <br />
                 <input type="text" onChange={e => setBlogTitle(e.target.value)} value={blogTitle} /> <br />
                 <label htmlFor="heading">Heading:</label>
                 <input type="text" onChange={e => setHeading(e.target.value)} value={heading} /> <br />
@@ -50,8 +51,11 @@ const NewBlog = () => {
                 <button onClick={addParagraph}>Add Paragraph</button> <br />
                 <input type="submit" value="Add Blog" />
             </form>
+            </div>
+            <div className="panel">
             <h1>Preview</h1>
             <Blog {...{blogTitle, paragraphs}}/>
+            </div>
         </div>
     )
 }

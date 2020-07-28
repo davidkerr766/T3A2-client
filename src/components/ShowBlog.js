@@ -13,9 +13,10 @@ const ShowBlog = (props) => {
     }, [blogs, props.match.params.index])
 
     return (
-        <div>
+        <div className="browse">
             {blog && <Blog {...blog} />}
             <button onClick={e => {e.preventDefault(); history.goBack()}}>Back</button>
+            <Link to={`/blogs/${props.match.params.index}/edit`}><button>Edit</button></Link>
             <Link to="/blogs"><button>Blogs</button></Link>
         </div>
     )

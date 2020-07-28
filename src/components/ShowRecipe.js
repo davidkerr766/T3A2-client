@@ -13,9 +13,10 @@ const ShowRecipe = (props) => {
     }, [recipes, props.match.params.index])
 
     return (
-        <div>
+        <div className="browse">
             {recipe && <Recipe {...recipe} />}
             <button onClick={e => {e.preventDefault(); history.goBack()}}>Back</button>
+            <Link to={`/recipes/${props.match.params.index}/edit`}><button>Edit</button></Link>
             <Link to="/recipes"><button>Recipes</button></Link>
         </div>
     )

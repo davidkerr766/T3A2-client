@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+nav {
+    grid-row: 1 / span 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
+#main {
+    background-color: rgba(140, 209, 221, 0.432);
+    max-width: 1280px;
+    width: 100%;
+    min-height: calc(100vh - 3rem);
+    margin: auto;
+    display: flex;
+    font-family: 'Titillium Web', sans-serif;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav div a, 
+nav div button {
+    padding: 1rem;
+    text-decoration: none;
+    color: black;
+}
+
+nav *:hover {
+    color: pink;
+}
+
+nav button {
+    font-size: 100%;
+    font-family: inherit;
+    background-color: white;
+    border: none;
+}
+
+.content {
+    width: 100%;
+    background-color: lightyellow;
+    margin: auto;
+    text-align: left;
+    border-radius: 0.5rem;
+}
+
+ul, 
+ol {
+    list-style-position:inside;
+}
+
+.content img {
+    width: 100%;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.browse {
+    max-width: 640px;
+    padding: 0 0.5rem;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin: 0.25rem;
+    font-family: 'Amatic SC', cursive;
+    font-size: 3.5rem;
+    width: 100%;
+}
+
+.browse button {
+    padding: 0.2rem 1rem;
+    margin-bottom: 0.5rem;
+    margin-top:0.2rem;
+}
+
+
+.text {
+    padding: 0.2rem 0.5rem;
+}
+
+#blog h2 {
+    font-size: 1.8rem;
+    background-color: rgb(218, 218, 192);
+    padding: 0 0.3rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    text-align: center;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    padding: 0.5rem 0;
+    position: sticky;
+    top: 3rem;
+}
+
+.message button {
+    margin: 0;
+    border-radius: 50%;
+    margin: 0 0.5rem;
+    padding: 0 0.25rem;
+    border: 0;
+
+}
+
+form {
+    padding: 0 0.5rem;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}
+
+input[type=text],
+input[type=password],
+textarea {
+    width: 90%;
+}
+
+input[type=submit] {
+    padding: 0.2rem 1rem;
+    margin-top: 0.35rem;
+}
+
+#about {
+    width: 75%;
+    text-align: center;
+    margin: auto;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.panel-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+.panel {
+    width: 49%;
+}

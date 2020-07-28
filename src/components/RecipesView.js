@@ -8,8 +8,8 @@ const RecipesView = () => {
     const { recipes, setRecipes, setErrorMsg, setConfMsg, userData } = useContext(UserContext)
 
     return (
-        <div>
-            <h1>Recipes</h1>
+        <div className="browse">
+            <h1>RECIPES</h1>
             {userData.user && <Link to="recipes/new"><button>Add New Recipe</button></Link>}
             {recipes && <>
             {recipes.map((recipe, key) => (
@@ -28,6 +28,7 @@ const RecipesView = () => {
                         if (err.response.data.error) setErrorMsg(err.response.data.error)
                     }     
                 }}>Delete</button></>}
+                <br/>
                 </React.Fragment>
             ))}
             </>}

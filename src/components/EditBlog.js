@@ -49,10 +49,11 @@ const EditBlog = (props) => {
     }
 
     return (
-        <div>
+        <div className="panel-container">
+            <div className="panel">
             <h1>Edit Blog</h1>
             <form onSubmit={sendUpdatedBlog}>
-                <label htmlFor="blogTitle">Title:</label>
+                <label htmlFor="blogTitle"><b>Title:</b></label> <br />
                 <input type="text" onChange={e => setBlogTitle(e.target.value)} value={blogTitle} /> <br />
                 {
                     paragraphs.map((paragraph, key) => (
@@ -85,8 +86,11 @@ const EditBlog = (props) => {
                 <br /> <br/>
                 <input type="submit" value="Save Blog" />
             </form>
+            </div>
+            <div className="panel">
             <h1>Preview</h1>
             <Blog {...{blogTitle, paragraphs}}/>
+            </div>
         </div>
     )
 }

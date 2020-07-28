@@ -19,18 +19,18 @@ const LoginButton = () => {
     }
 
     return (
-        <>
+        <div>
         { userData.user ? (
             <>
-            <button onClick={logOut} >Log Out</button>
-            <button onClick={changePassword} >Change Password</button>
+            <button onClick={logOut} >LOG OUT</button>
+            <button onClick={changePassword} >CHANGE PASSWORD</button>
             </>
         ) : (
-            <button onClick={login} >Login</button>
+            <button onClick={login} >LOGIN</button>
         )
 
         }
-        </>    
+        </div>    
     )
 }
 

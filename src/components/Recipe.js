@@ -4,8 +4,9 @@ const Recipe = (props) => {
     const { recipeTitle, serves, description, ingredients, methods, notes, getURL } = props
 
     return (
-        <div>
+        <div className="content">
             {getURL && <img src={getURL} alt={recipeTitle || "Image of completed recipe"} />}
+            {(recipeTitle || serves || description || notes) && <div className="text">
             {recipeTitle && <h2>{recipeTitle}</h2>}
             { serves && <p><b>Serves: {serves}</b></p>}
             {description && <p>{description}</p>}
@@ -23,6 +24,7 @@ const Recipe = (props) => {
             </ol></>}
             {notes && <><p><b>Notes:</b></p>
             <p>{notes}</p></>}
+            </div>}
         </div>
     )
 }

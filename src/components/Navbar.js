@@ -5,9 +5,11 @@ import LoginButton from './LoginButton'
 const Navbar = () => {
     return (
         <nav>
-            <Link to="/">About</Link>
-            <Link to="/recipes">Recipes</Link>
-            <Link to="/blogs">Blog</Link>
+            <div>
+            <Link to="/">ABOUT</Link>
+            <Link to="/recipes">RECIPES</Link>
+            <Link to="/blogs">BLOG</Link>
+            </div>
             <LoginButton />
       </nav>
     )
