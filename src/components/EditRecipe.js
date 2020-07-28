@@ -90,7 +90,7 @@ const EditRecipe = (props) => {
             <div className="panel">
             <h1>Edit Recipe</h1>
             <form onSubmit={sendUpdatedRecipe}>
-            <label htmlFor="image">Image:</label>
+            <label htmlFor="image">Image:</label> <br />
                 <input type="file" accept="image/*" id="image" onChange={uploadImg} /> <br />
                 <label htmlFor="recipeTitle">Title:</label> <br />
                 <input type="text" onChange={e => setRecipeTitle(e.target.value)} value={recipeTitle} /> <br />

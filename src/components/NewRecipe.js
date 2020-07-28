@@ -78,7 +78,7 @@ const NewRecipe = () => {
             <div className="panel">
             <h1>New Recipe</h1>
             <form onSubmit={sendRecipe}>
-                <label htmlFor="image">Image:</label>
+                <label htmlFor="image">Image:</label> <br />
                 <input type="file" accept="image/*" id="image" onChange={uploadImg} /> <br />
                 <label htmlFor="recipeTitle">Title:</label> <br />
                 <input type="text" onChange={e => setRecipeTitle(e.target.value)} value={recipeTitle} /> <br />
