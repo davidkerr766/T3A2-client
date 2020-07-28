@@ -17,6 +17,9 @@ nav {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: white;
 }
 
 #main {
@@ -78,6 +81,7 @@ h1 {
     margin: 0.25rem;
     font-family: 'Amatic SC', cursive;
     font-size: 3.5rem;
+    width: 100%;
 }
 
 .browse button {
@@ -85,6 +89,7 @@ h1 {
     margin-bottom: 0.5rem;
     margin-top:0.2rem;
 }
+
 
 .text {
     padding: 0.2rem 0.5rem;
@@ -105,6 +110,8 @@ h1 {
     background-color: white;
     width: 100%;
     padding: 0.5rem 0;
+    position: sticky;
+    top: 3rem;
 }
 
 .message button {
@@ -119,7 +126,7 @@ h1 {
 form {
     padding: 0 0.5rem;
     text-align: center;
-    width: 60%;
+    width: 80%;
     margin: auto;
 }
 
@@ -140,4 +147,15 @@ input[type=submit] {
     margin: auto;
     margin-top: 1rem;
     font-size: 1.2rem;
+}
+
+.panel-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+.panel {
+    width: 49%;
 }

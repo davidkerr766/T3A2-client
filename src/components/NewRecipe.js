@@ -74,12 +74,13 @@ const NewRecipe = () => {
     }
 
     return (
-        <div>
+        <div className="panel-container">
+            <div className="panel">
             <h1>New Recipe</h1>
             <form onSubmit={sendRecipe}>
                 <label htmlFor="image">Image:</label>
                 <input type="file" accept="image/*" id="image" onChange={uploadImg} /> <br />
-                <label htmlFor="recipeTitle">Title:</label>
+                <label htmlFor="recipeTitle">Title:</label> <br />
                 <input type="text" onChange={e => setRecipeTitle(e.target.value)} value={recipeTitle} /> <br />
                 <label htmlFor="serves">Serves:</label>
                 <input type="text" onChange={e => setServes(e.target.value)} value={serves} /> <br />
@@ -95,8 +96,11 @@ const NewRecipe = () => {
                 <textarea id="notes" rows="4" cols="50" onChange={e => setNotes(e.target.value)} value={notes} /> <br />
                 <input type="submit" value="Add Recipe" />
             </form>
+            </div>
+            <div className="panel">
             <h1>Preview</h1>
             <Recipe {...{recipeTitle, serves, description, ingredients, methods, notes, getURL}}/>
+            </div>
         </div>
     )
 }
