@@ -4,7 +4,7 @@ const Blog = (props) => {
     const { blogTitle, paragraphs } = props
     return (
         <div className="content" id="blog">
-            {blogTitle && <h2>{blogTitle}</h2>}
+            {blogTitle && <h2 data-testid="1">{blogTitle}</h2>}
             {(blogTitle || paragraphs.length > 0) && <div className="text">
             {(paragraphs.length > 0) && <>
                 {paragraphs.map((paragraph, key) => (

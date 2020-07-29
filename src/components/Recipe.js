@@ -7,7 +7,7 @@ const Recipe = (props) => {
         <div className="content">
             {getURL && <img src={getURL} alt={recipeTitle || "Image of completed recipe"} />}
             {(recipeTitle || serves || description || notes) && <div className="text">
-            {recipeTitle && <h2>{recipeTitle}</h2>}
+            {recipeTitle && <h2 data-testid="2">{recipeTitle}</h2>}
             { serves && <p><b>Serves: {serves}</b></p>}
             {description && <p>{description}</p>}
             {(ingredients.length > 0) &&<><p><b>Ingredients:</b></p>

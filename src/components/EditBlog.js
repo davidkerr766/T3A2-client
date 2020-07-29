@@ -54,7 +54,7 @@ const EditBlog = (props) => {
             <h1>Edit Blog</h1>
             <form onSubmit={sendUpdatedBlog}>
                 <label htmlFor="blogTitle"><b>Title:</b></label> <br />
-                <input type="text" onChange={e => setBlogTitle(e.target.value)} value={blogTitle} /> <br />
+                <input type="text" id="blogTitle" onChange={e => setBlogTitle(e.target.value)} value={blogTitle} /> <br />
                 {
                     paragraphs.map((paragraph, key) => (
                         <React.Fragment key={key}>
