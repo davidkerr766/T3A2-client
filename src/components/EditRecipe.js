@@ -38,6 +38,8 @@ const EditRecipe = (props) => {
         if (ingredient) {
             setIngredients([...ingredients, ingredient])
             setIngredient("")
+        } else {
+            setErrorMsg("New ingredient cannot be blank")
         }
     }
 
@@ -46,6 +48,8 @@ const EditRecipe = (props) => {
         if (method) {
             setMethods([...methods, method])
             setMethod("")
+        } else {
+            setErrorMsg("New method cannot be blank")
         }
     }
 
@@ -93,7 +97,7 @@ const EditRecipe = (props) => {
             <label htmlFor="image">Image:</label> <br />
                 <input type="file" accept="image/*" id="image" onChange={uploadImg} /> <br />
                 <label htmlFor="recipeTitle">Title:</label> <br />
-                <input type="text" onChange={e => setRecipeTitle(e.target.value)} value={recipeTitle} /> <br />
+                <input id="recipeTitle" type="text" onChange={e => setRecipeTitle(e.target.value)} value={recipeTitle} /> <br />
                 <label htmlFor="serves">Serves:</label> <br />
                 <input type="text" onChange={e => setServes(e.target.value)} value={serves} /> <br />
                 <label htmlFor="description">Description:</label> <br />
