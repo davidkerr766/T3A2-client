@@ -1,25 +1,37 @@
-import React, { useContext, useEffect, useState } from 'react'
-import UserContext from '../context/UserContext'
-import Recipe from './Recipe'
-import { useHistory, Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from "react";
+import AppContext from "../context/AppContext";
+import Recipe from "./Recipe";
+import { useHistory, Link } from "react-router-dom";
 
 const ShowRecipe = (props) => {
-    const { recipes } = useContext(UserContext)
-    const [recipe, setRecipe] = useState()
-    const history = useHistory()
-    
-    useEffect(()=> {
-        setRecipe(recipes[props.match.params.index])
-    }, [recipes, props.match.params.index])
+  const { recipes } = useContext(AppContext);
+  const [recipe, setRecipe] = useState();
+  const history = useHistory();
 
-    return (
-        <div className="browse">
-            {recipe && <Recipe {...recipe} />}
-            <button onClick={e => {e.preventDefault(); history.goBack()}}>Back</button>
-            <Link to={`/recipes/${props.match.params.index}/edit`}><button>Edit</button></Link>
-            <Link to="/recipes"><button>Recipes</button></Link>
-        </div>
-    )
-}
+  // wait until data has loaded from the api before setting state
+  useEffect(() => {
+    setRecipe(recipes[props.match.params.index]);
+  }, [recipes, props.match.params.index]);
 
-export default ShowRecipe
+  return (
+    <div className="browse">
+      {recipe && <Recipe {...recipe} />}
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          history.goBack();
+        }}
+      >
+        Back
+      </button>
+      <Link to={`/recipes/${props.match.params.index}/edit`}>
+        <button>Edit</button>
+      </Link>
+      <Link to="/recipes">
+        <button>Recipes</button>
+      </Link>
+    </div>
+  );
+};
+
+export default ShowRecipe;

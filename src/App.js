@@ -6,7 +6,7 @@ import BlogsView from "./components/BlogsView";
 import Login from "./components/Login";
 import ChangePassword from "./components/ChangePassword";
 import Navbar from "./components/Navbar";
-import UserContext from "./context/UserContext";
+import AppContext from "./context/AppContext";
 import api from "./api";
 import NewRecipe from "./components/NewRecipe";
 import EditRecipe from "./components/EditRecipe";
@@ -30,17 +30,21 @@ const App = () => {
 
   useEffect(() => {
     const checkLoggedIn = async () => {
+      // get the jwt if there is one
       let token = localStorage.getItem("auth-token");
       if (token === null) {
         localStorage.setItem("auth-token", "");
       }
+      // Check it's a valid token
       const tokenCheck = await api.post("/users/tokenIsValid", null, {
         headers: { "x-auth-token": token },
       });
       if (tokenCheck.data) {
+        // If the token is valid get the data for the logged in user
         const userRes = await api.get("/users/", {
           headers: { "x-auth-token": token },
         });
+        // Load the user into state so they don't need to manually log in
         setUserData({
           token,
           user: userRes.data,
@@ -62,7 +66,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <UserContext.Provider
+      <AppContext.Provider
         value={{
           userData,
           setUserData,
@@ -75,8 +79,8 @@ const App = () => {
           setBlogs,
         }}
       >
-          <Navbar />
-          <div id="main">
+        <Navbar />
+        <div id="main">
           {errorMsg && (
             <ErrorMessage
               message={errorMsg}
@@ -102,8 +106,8 @@ const App = () => {
             <Route path="/change-password" component={ChangePassword} />
             <Route path="/" component={AboutView} />
           </Switch>
-          </div>
-      </UserContext.Provider>
+        </div>
+      </AppContext.Provider>
     </BrowserRouter>
   );
 };

@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://limitless-island-04616.herokuapp.com/api'
-})
+  baseURL: "https://limitless-island-04616.herokuapp.com/api",
+});
 
-export default api
+export default api;
