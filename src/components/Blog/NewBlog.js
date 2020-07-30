@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import AppContext from "../context/AppContext";
+import AppContext from "../../context/AppContext";
 import { useHistory } from "react-router-dom";
 import Blog from "./Blog";
-import api from "../api";
+import api from "../../api";
 
 const NewBlog = () => {
   const [blogTitle, setBlogTitle] = useState("");

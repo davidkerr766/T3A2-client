@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import AppContext from "../context/AppContext";
+import AppContext from "../../context/AppContext";
 
 const LoginButton = () => {
   const { userData, setUserData, setConfMsg } = useContext(AppContext);

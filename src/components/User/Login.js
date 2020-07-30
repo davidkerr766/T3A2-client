@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import AppContext from "../context/AppContext";
-import api from "../api";
+import AppContext from "../../context/AppContext";
+import api from "../../api";
 
 const Login = () => {
   const [email, setEmail] = useState();

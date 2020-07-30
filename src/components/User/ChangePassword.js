@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import api from "../api";
-import AppContext from "../context/AppContext";
+import api from "../../api";
+import AppContext from "../../context/AppContext";
 
 const ChangePassword = () => {
   const [oldPass, setOldPass] = useState();

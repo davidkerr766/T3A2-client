@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import AppContext from "../context/AppContext";
+import AppContext from "../../context/AppContext";
 import Blog from "./Blog";
 import { useHistory } from "react-router-dom";
-import api from "../api";
+import api from "../../api";
 
 const EditBlog = (props) => {
   const index = props.match.params.index;

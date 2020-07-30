@@ -1,10 +1,10 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import App from "./App";
-import Recipe from "./components/Recipe";
-import Blog from "./components/Blog";
-import EditBlog from "./components/EditBlog";
-import EditRecipe from "./components/EditRecipe";
+import Recipe from "./components/Recipe/Recipe";
+import Blog from "./components/Blog/Blog";
+import EditBlog from "./components/Blog/EditBlog";
+import EditRecipe from "./components/Recipe/EditRecipe";
 import UserContext from "./context/AppContext";
 
 it("renders App without crashing", () => {

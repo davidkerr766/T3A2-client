@@ -1,16 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
-import AppContext from "../context/AppContext";
-import api from "../api";
+import React, { useState, useContext } from "react";
+import api from "../../api";
+import AppContext from "../../context/AppContext";
 import { useHistory } from "react-router-dom";
 import Recipe from "./Recipe";
-import Axios from "axios";
+import axios from "axios";
 
-const EditRecipe = (props) => {
-  const index = props.match.params.index;
-  const { recipes, setRecipes, setErrorMsg, setConfMsg } = useContext(
-    AppContext
-  );
-  const recipe = recipes[index];
+const NewRecipe = () => {
   const [recipeTitle, setRecipeTitle] = useState("");
   const [serves, setServes] = useState("");
   const [description, setDescription] = useState("");
@@ -20,20 +15,36 @@ const EditRecipe = (props) => {
   const [getURL, setGetURL] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [methods, setMethods] = useState([]);
+  const { recipes, setRecipes, setErrorMsg, setConfMsg } = useContext(
+    AppContext
+  );
   const history = useHistory();
 
-  // update values when recipes have been fetched from the api
-  useEffect(() => {
-    if (recipe) {
-      setRecipeTitle(recipe.recipeTitle);
-      setServes(recipe.serves);
-      setDescription(recipe.description);
-      setNotes(recipe.notes);
-      setIngredients(recipe.ingredients);
-      setMethods(recipe.methods);
-      setGetURL(recipe.getURL);
+  const sendRecipe = async (e) => {
+    try {
+      e.preventDefault();
+      const newRecipe = {
+        recipeTitle,
+        serves,
+        description,
+        ingredients,
+        methods,
+        notes,
+        getURL,
+      };
+      // data from state sent to api top create new recipe
+      const createRes = await api.post("/recipes/create", newRecipe, {
+        headers: { "x-auth-token": localStorage.getItem("auth-token") },
+      });
+      setConfMsg(createRes.data.message);
+      // update the state in app with new recipe
+      setRecipes([...recipes, createRes.data.data]);
+      // redirect to show page
+      history.push(`/recipes/${recipes.length}`);
+    } catch (err) {
+      if (err.response.data.error) setErrorMsg(err.response.data.error);
     }
-  }, [recipe]);
+  };
 
   const addIngredient = (e) => {
     e.preventDefault();
@@ -42,7 +53,7 @@ const EditRecipe = (props) => {
       setIngredients([...ingredients, ingredient]);
       setIngredient("");
     } else {
-      setErrorMsg("New ingredient cannot be blank");
+      setErrorMsg("Ingredient cannot be blank");
     }
   };
 
@@ -53,36 +64,7 @@ const EditRecipe = (props) => {
       setMethods([...methods, method]);
       setMethod("");
     } else {
-      setErrorMsg("New method cannot be blank");
-    }
-  };
-
-  const sendUpdatedRecipe = async (e) => {
-    try {
-      e.preventDefault();
-      const updatedRecipe = {
-        ...recipe,
-        recipeTitle,
-        serves,
-        description,
-        ingredients,
-        methods,
-        notes,
-        getURL,
-      };
-      // send the updated recipe to the api update route
-      const editRes = await api.put("recipes/update", updatedRecipe, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
-      // swap out the old recipe for the updated one
-      recipes.splice(index, 1, updatedRecipe);
-      // save the new recipes array in state
-      setRecipes([...recipes]);
-      setConfMsg(editRes.data.message);
-      // redirect to the show page
-      history.push(`/recipes/${index}`);
-    } catch (err) {
-      if (err.response.data.error) setErrorMsg(err.response.data.error);
+      setErrorMsg("Method cannot be blank");
     }
   };
 
@@ -106,7 +88,7 @@ const EditRecipe = (props) => {
       .get("images/generate-put-url", options)
       .then((res) => {
         // Upload the image to aws s3
-        return Axios.put(res.data.putURL, file, options);
+        return axios.put(res.data.putURL, file, options);
       })
       .then((res) => {
         // once the image is uploaded the url is saved in state
@@ -118,8 +100,8 @@ const EditRecipe = (props) => {
   return (
     <div className="panel-container">
       <div className="panel">
-        <h1>Edit Recipe</h1>
-        <form onSubmit={sendUpdatedRecipe}>
+        <h1>New Recipe</h1>
+        <form onSubmit={sendRecipe}>
           <label htmlFor="image">Image:</label> <br />
           <input
             type="file"
@@ -130,13 +112,12 @@ const EditRecipe = (props) => {
           <br />
           <label htmlFor="recipeTitle">Title:</label> <br />
           <input
-            id="recipeTitle"
             type="text"
             onChange={(e) => setRecipeTitle(e.target.value)}
             value={recipeTitle}
           />{" "}
           <br />
-          <label htmlFor="serves">Serves:</label> <br />
+          <label htmlFor="serves">Serves:</label>
           <input
             type="text"
             onChange={(e) => setServes(e.target.value)}
@@ -152,68 +133,18 @@ const EditRecipe = (props) => {
             value={description}
           />{" "}
           <br />
-          <p>Ingredients:</p>
-          {ingredients.map((ingred, key) => (
-            <>
-              <input
-                type="text"
-                value={ingred}
-                onChange={(e) => {
-                  // update state so changes are seen in the preview
-                  ingredients.splice(key, 1, e.target.value);
-                  setIngredients([...ingredients]);
-                }}
-              />
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  // remove the selected ingredient
-                  ingredients.splice(key, 1);
-                  setIngredients([...ingredients]);
-                }}
-              >
-                X
-              </button>
-              <br />
-            </>
-          ))}
-          <label htmlFor="newIngredient">New Ingredient:</label>
+          <label htmlFor="ingredients">Ingredients:</label>
           <input
             type="text"
-            id="newIngredients"
+            id="ingredients"
             onChange={(e) => setIngredient(e.target.value)}
             value={ingredient}
           />
           <button onClick={addIngredient}>Add</button> <br />
-          <p>Methods:</p>
-          {methods.map((meth, key) => (
-            <>
-              <input
-                type="text"
-                value={meth}
-                onChange={(e) => {
-                  // update state so changes are seen in the preview
-                  methods.splice(key, 1, e.target.value);
-                  setMethods([...methods]);
-                }}
-              />
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  // remove the selected method
-                  methods.splice(key, 1);
-                  setMethods([...methods]);
-                }}
-              >
-                X
-              </button>
-              <br />
-            </>
-          ))}
-          <label htmlFor="newMethod">New Method:</label>
+          <label htmlFor="methods">Methods:</label>
           <input
             type="text"
-            id="newMethod"
+            id="methods"
             onChange={(e) => setMethod(e.target.value)}
             value={method}
           />
@@ -227,7 +158,7 @@ const EditRecipe = (props) => {
             value={notes}
           />{" "}
           <br />
-          <input type="submit" value="Save Recipe" />
+          <input type="submit" value="Add Recipe" />
         </form>
       </div>
       <div className="panel">
@@ -248,4 +179,4 @@ const EditRecipe = (props) => {
   );
 };
 
-export default EditRecipe;
+export default NewRecipe;

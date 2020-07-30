@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import AppContext from "../context/AppContext";
+import AppContext from "../../context/AppContext";
 import Blog from "./Blog";
 import { Link } from "react-router-dom";
-import api from "../api";
+import api from "../../api";
 
 const BlogsView = () => {
   const { blogs, setBlogs, setConfMsg, setErrorMsg, userData } = useContext(

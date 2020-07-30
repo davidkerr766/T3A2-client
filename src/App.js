@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import AboutView from "./components/AboutView";
-import RecipesView from "./components/RecipesView";
-import BlogsView from "./components/BlogsView";
-import Login from "./components/Login";
-import ChangePassword from "./components/ChangePassword";
-import Navbar from "./components/Navbar";
+import AboutView from "./components/About/AboutView";
+import RecipesView from "./components/Recipe/RecipesView";
+import BlogsView from "./components/Blog/BlogsView";
+import Login from "./components/User/Login";
+import ChangePassword from "./components/User/ChangePassword";
+import Navbar from "./components/Header/Navbar";
 import AppContext from "./context/AppContext";
 import api from "./api";
-import NewRecipe from "./components/NewRecipe";
-import EditRecipe from "./components/EditRecipe";
-import ErrorMessage from "./components/ErrorMessage";
-import ConfirmationMessage from "./components/ConfirmationMessage";
-import ShowRecipe from "./components/ShowRecipe";
-import NewBlog from "./components/NewBlog";
-import EditBlog from "./components/EditBlog";
-import ShowBlog from "./components/ShowBlog";
+import NewRecipe from "./components/Recipe/NewRecipe";
+import EditRecipe from "./components/Recipe/EditRecipe";
+import ErrorMessage from "./components/Header/ErrorMessage";
+import ConfirmationMessage from "./components/Header/ConfirmationMessage";
+import ShowRecipe from "./components/Recipe/ShowRecipe";
+import NewBlog from "./components/Blog/NewBlog";
+import EditBlog from "./components/Blog/EditBlog";
+import ShowBlog from "./components/Blog/ShowBlog";
 import "./style.css";
 
 const App = () => {

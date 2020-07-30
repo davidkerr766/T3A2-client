@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Recipe from "./Recipe";
-import AppContext from "../context/AppContext";
-import api from "../api";
+import AppContext from "../../context/AppContext";
+import api from "../../api";
 
 const RecipesView = () => {
   const { recipes, setRecipes, setErrorMsg, setConfMsg, userData } = useContext(
