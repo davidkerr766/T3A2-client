@@ -3,7 +3,7 @@ import React from "react";
 const About = () => {
   return (
     <div>
-      <h1>ABOUT</h1>
+      <h1>NOURISHED TO HEALTH</h1>
       <img
         src="https://mern-bucket.s3-ap-southeast-2.amazonaws.com/fruit.webp"
         alt="fruit and vegetables"
